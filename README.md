@@ -283,8 +283,3 @@ pip install pandas numpy matplotlib seaborn scikit-learn statsmodels scipy
 * Human Capital Theory
 * Ridge Regression Literature
 * Generalized Entropy & Theil Index Theory
-
-```
-
-Format ini sudah siap digunakan sebagai **README.md GitHub** untuk proyek analisis regresi gaji karyawan dan mengikuti gaya yang sama seperti contoh yang Anda berikan.
-```
