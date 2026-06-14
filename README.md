@@ -1,7 +1,7 @@
 
 # employee-salary-econometric-analysis
 
-# 📊 Analisis Regresi Multivariat Terhadap Faktor Penentu Gaji Karyawan
+# 📊 Analisis Ekonometrika Multivariat Faktor Penentu Gaji Karyawan
 
 Proyek ini mengimplementasikan analisis ekonometrika menggunakan **Multiple Linear Regression (OLS)** dan **Ridge Regression** untuk mengidentifikasi faktor-faktor yang memengaruhi tingkat kompensasi karyawan. Analisis dilakukan pada dataset **Salary Data** dari Kaggle yang berisi 6.704 observasi individu dengan karakteristik demografis dan profesional yang beragam.
 
