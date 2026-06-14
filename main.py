@@ -38,7 +38,7 @@ class SalaryDataPipeline:
         self.df = self.raw_data.copy()
 
         # 1. Menghapus nilai kosong (null values)
-        self.df.dropna(subset=, inplace=True)
+        self.df.dropna(subset=['Age', 'Salary', 'Gender', 'Education Level'], inplace=True)
         
         # 2. Menghapus baris duplikat
         self.df.drop_duplicates(inplace=True)
@@ -60,8 +60,7 @@ class SalaryDataPipeline:
         
         # Konversi tipe data numerik ke float
         self.df['Age'] = self.df['Age'].astype(float)
-        self.df = self.df.astype(float)
-        self.df = self.df.astype(float)
+        self.df['Salary'] = self.df['Salary'].astype(float)
 
         print(f"Pembersihan Selesai. Sisa baris observasi: {len(self.df)}")
         return self.df
@@ -73,7 +72,7 @@ class SalaryDataPipeline:
         """
         results = {}
         for gender in ['Male', 'Female']:
-            group_salaries = self.df[self.df['Gender'] == gender].values
+            group_salaries = self.df.loc[self.df['Gender'] == gender, 'Salary'].values
             group_salaries = group_salaries[group_salaries > 0]
             
             if len(group_salaries) == 0:
@@ -113,10 +112,12 @@ class SalaryDataPipeline:
 
         # Menentukan matriks variabel independen (X) dengan membuang baseline reference
         # Baseline reference: Edu_High School dan Gender_Male dibuang
-        features =
+        features = ['Age']
+        features += [col for col in edu_dummies.columns if col != 'Edu_High School']
+        features += [col for col in gender_dummies.columns if col != 'Gender_Male']
         
         self.X_ols = reg_df[features].astype(float)
-        self.y = reg_df.astype(float)
+        self.y = reg_df['Salary'].astype(float)
         
         # Menambahkan konstanta intersep untuk estimasi model OLS statsmodels
         self.X_ols = sm.add_constant(self.X_ols)
@@ -132,7 +133,7 @@ class SalaryDataPipeline:
         vif_df["Variable"] = predictors.columns
         vif_df["VIF"] = [
             variance_inflation_factor(predictors.values, i)
-            for i in range(predictors.shape)
+            for i in range(predictors.shape[1])
         ]
         return vif_df
 
@@ -171,7 +172,7 @@ class SalaryDataPipeline:
 
 if __name__ == "__main__":
     # Menentukan lokasi penyimpanan berkas data riil
-    data_path = "data/raw/Salary_Data (1).csv"
+    data_path = "data/raw/Salary_Data.csv"
     
     # Membuat direktori data mentah jika belum tersedia secara lokal
     if not os.path.exists("data/raw/"):
