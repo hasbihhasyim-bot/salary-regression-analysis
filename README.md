@@ -1,5 +1,7 @@
-# employee-salary-regression
-# 📈 Analisis Regresi Multivariat Terhadap Faktor Penentu Gaji Karyawan
+
+# employee-salary-econometric-analysis
+
+# 📊 Analisis Regresi Multivariat Terhadap Faktor Penentu Gaji Karyawan
 
 Proyek ini mengimplementasikan analisis ekonometrika menggunakan **Multiple Linear Regression (OLS)** dan **Ridge Regression** untuk mengidentifikasi faktor-faktor yang memengaruhi tingkat kompensasi karyawan. Analisis dilakukan pada dataset **Salary Data** dari Kaggle yang berisi 6.704 observasi individu dengan karakteristik demografis dan profesional yang beragam.
 
@@ -88,3 +90,201 @@ PhD
 
 Female
 Other
+````
+
+---
+
+## 📈 Analisis Statistik Deskriptif
+
+### Distribusi Gender
+
+| Gender | Jumlah |
+| ------ | ------ |
+| Male   | 3.671  |
+| Female | 3.013  |
+| Other  | 14     |
+
+### Rata-rata Gaji Tahunan
+
+| Gender | Rata-rata Gaji |
+| ------ | -------------- |
+| Female | USD 107.889    |
+| Male   | USD 121.396    |
+| Other  | USD 125.870    |
+
+---
+
+## 🎓 Pengaruh Pendidikan Terhadap Gaji
+
+| Pendidikan  | Female      | Male        |
+| ----------- | ----------- | ----------- |
+| High School | USD 30.368  | USD 39.381  |
+| Bachelor's  | USD 89.165  | USD 98.972  |
+| Master's    | USD 122.695 | USD 140.061 |
+| PhD         | USD 160.266 | USD 168.711 |
+
+Temuan utama:
+
+* Semakin tinggi pendidikan, semakin tinggi rata-rata gaji.
+* Gender wage gap muncul pada seluruh tingkat pendidikan.
+* Kesenjangan terbesar terjadi pada tingkat Master's Degree.
+
+---
+
+## 📉 Analisis Ketimpangan Pendapatan
+
+### Shannon Entropy
+
+Digunakan untuk mereplikasi hasil laporan awal.
+
+Formula:
+
+```math
+H = -\sum p_i \log(p_i)
+```
+
+Keterangan:
+
+* pᵢ = proporsi kontribusi gaji individu terhadap total gaji kelompok.
+
+### True Theil Index
+
+Digunakan sebagai ukuran ketimpangan yang lebih valid.
+
+Formula:
+
+```math
+T = \frac{1}{N}\sum \frac{y_i}{\mu}
+\ln\left(\frac{y_i}{\mu}\right)
+```
+
+Keterangan:
+
+* yᵢ = gaji individu
+* μ = rata-rata gaji kelompok
+* N = jumlah observasi
+
+---
+
+## 🔬 Model Regresi Linear Berganda
+
+Persamaan model:
+
+```math
+Salary_i =
+β_0 +
+β_1 Age_i +
+β_2 Experience_i +
+β_3 Bachelor's_i +
+β_4 Master's_i +
+β_5 PhD_i +
+β_6 Female_i +
+β_7 Other_i +
+ε_i
+```
+
+Dimana:
+
+* Salary = Gaji tahunan
+* Age = Usia
+* Experience = Lama pengalaman kerja
+* Bachelor's, Master's, PhD = Dummy pendidikan
+* Female, Other = Dummy gender
+* ε = Error term
+
+---
+
+## ⚠️ Diagnostik Multikolinearitas
+
+Karena variabel:
+
+```text
+Age
+Years of Experience
+```
+
+sangat berkorelasi, maka dilakukan pengujian menggunakan:
+
+### Variance Inflation Factor (VIF)
+
+Formula:
+
+```math
+VIF_j = \frac{1}{1-R_j^2}
+```
+
+Interpretasi:
+
+| Nilai VIF | Keterangan               |
+| --------- | ------------------------ |
+| < 5       | Aman                     |
+| 5 – 10    | Perlu perhatian          |
+| > 10      | Multikolinearitas tinggi |
+
+---
+
+## 🛠 Ridge Regression
+
+Untuk mengurangi dampak multikolinearitas digunakan Ridge Regression.
+
+Objective Function:
+
+```math
+RSS + \lambda \sum \beta_j^2
+```
+
+Keuntungan:
+
+* Menstabilkan koefisien regresi
+* Mengurangi varians model
+* Mempertahankan seluruh variabel penting
+* Mengatasi korelasi tinggi antar fitur
+
+---
+
+## 📦 Library Python yang Digunakan
+
+```python
+pandas
+numpy
+matplotlib
+seaborn
+
+scikit-learn
+statsmodels
+
+scipy
+```
+
+Instalasi:
+
+```bash
+pip install pandas numpy matplotlib seaborn scikit-learn statsmodels scipy
+```
+
+---
+
+## 🚀 Hasil Utama
+
+* Pendidikan formal merupakan faktor paling kuat dalam peningkatan gaji.
+* Pengalaman kerja berpengaruh positif terhadap kompensasi.
+* Terdapat gender wage gap pada seluruh tingkat pendidikan.
+* Variabel Age dan Experience menunjukkan indikasi multikolinearitas tinggi.
+* Ridge Regression meningkatkan stabilitas model.
+* Ketimpangan distribusi pendapatan lebih akurat diukur menggunakan Theil Index dibanding Shannon Entropy.
+
+---
+
+## 📚 Referensi
+
+* Kaggle Salary Data Dataset
+* Scikit-Learn Documentation
+* Statsmodels Documentation
+* Human Capital Theory
+* Ridge Regression Literature
+* Generalized Entropy & Theil Index Theory
+
+```
+
+Format ini sudah siap digunakan sebagai **README.md GitHub** untuk proyek analisis regresi gaji karyawan dan mengikuti gaya yang sama seperti contoh yang Anda berikan.
+```
